@@ -1,1 +1,82 @@
-<h1>My Portfolio</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .project {
+            background: white;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .project:hover {
+            transform: translateY(-3px);
+        }
+        .project h2 {
+            margin-top: 0;
+            color: #3498db;
+        }
+        .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hi there! 👋</h1>
+    <p>Welcome to my projects page! Here are some of my works related to semiconductors and physics:</p>
+
+    <div class="project">
+        <h2><span class="emoji">🔌</span> Quantum Dot Simulator</h2>
+        <p>A Python simulation tool for modeling electron behavior in semiconductor quantum dots under varying electric fields.</p>
+        <a href="https://github.com/yourusername/quantum-dot-simulator" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project">
+        <h2><span class="emoji">❄️</span> Cryogenic MOSFET Analyzer</h2>
+        <p>An analysis toolkit for characterizing MOSFET performance at cryogenic temperatures (4K-77K) for quantum computing applications.</p>
+        <a href="https://github.com/yourusername/cryo-mosfet-analyzer" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project">
+        <h2><span class="emoji">⚡</span> Semiconductor Defect Visualizer</h2>
+        <p>Interactive 3D visualization of common crystal defects in semiconductors using WebGL and crystallography data.</p>
+        <a href="https://github.com/yourusername/defect-visualizer" target="_blank">View on GitHub →</a>
+    </div>
+
+    <footer>
+        <p>Made with ❤️ and ☕</p>
+    </footer>
+</body>
+</html>
