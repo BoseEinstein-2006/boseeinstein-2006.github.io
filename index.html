@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
+    <title>Bose Einstein's Projects</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚗️</text></svg>">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -17,6 +18,22 @@
         h1 {
             color: #2c3e50;
             text-align: center;
+            min-height: 45px; /* Prevent layout shift during animation */
+        }
+        .typing {
+            border-right: 2px solid #000;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #000 }
         }
         .project {
             background: white;
@@ -53,10 +70,49 @@
             color: #7f8c8d;
         }
     </style>
+    <script>
+        const randomEmojis = ['😊', '😃', '😄', '😁', '😆', '🌟', '☀️', '🚀', '✨', '💫', '🌠', '😉', '😎', '🌻', '🌺', '🍀', '🎉', '🌞'];
+        
+        function typeWriter(text, element, callback) {
+            let i = 0;
+            element.innerHTML = '';
+            element.classList.add('typing');
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 100);
+                } else {
+                    element.classList.remove('typing');
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        function showRandomEmoji() {
+            const randomEmoji = randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
+            document.querySelector('#greeting-emoji').textContent = randomEmoji;
+            
+            setTimeout(() => {
+                document.querySelector('#greeting-emoji').textContent = '👋';
+            }, 1000);
+        }
+
+        window.onload = function() {
+            const h1 = document.querySelector('h1');
+            h1.innerHTML = 'Hi there! <span id="greeting-emoji"></span>';
+            
+            typeWriter('Hi there!', h1, () => {
+                showRandomEmoji();
+            });
+        };
+    </script>
 </head>
 <body>
-    <h1>Hi there! 👋</h1>
-    <p>Welcome to my projects page! Here are some of my works related to semiconductors, physics and machine learning:</p>
+    <h1></h1>
+    <p>Welcome to my projects page! Here are some of my works related to semiconductors and physics:</p>
 
     <div class="project">
         <h2><span class="emoji">🔌</span> Quantum Dot Simulator</h2>
