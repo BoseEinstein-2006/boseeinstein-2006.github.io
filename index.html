@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bose Einstein's Projects</title>
+    <title>Projects</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚗️</text></svg>">
     <style>
         body {
@@ -19,21 +19,27 @@
             color: #2c3e50;
             text-align: center;
             min-height: 45px; /* Prevent layout shift during animation */
-        }
-        .typing {
-            border-right: 2px solid #000;
-            white-space: nowrap;
-            overflow: hidden;
+        }        .cursor {
             display: inline-block;
-            animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+            width: 2px;
+            height: 1em;
+            background-color: #000;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
         }
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #000 }
+        .greeting {
+            display: inline-flex;
+            align-items: center;
+            min-height: 40px;
+        }
+        .emoji {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 1.2em;
         }
         .project {
             background: white;
@@ -69,40 +75,65 @@
             margin-top: 40px;
             color: #7f8c8d;
         }
-    </style>
-    <script>
+    </style>    <script>
         const randomEmojis = ['😊', '😃', '😄', '😁', '😆', '🌟', '☀️', '🚀', '✨', '💫', '🌠', '😉', '😎', '🌻', '🌺', '🍀', '🎉', '🌞'];
         
-        function typeWriter(text, element, callback) {
-            let i = 0;
-            element.innerHTML = '';
-            element.classList.add('typing');
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, 100);
-                } else {
-                    element.classList.remove('typing');
-                    if (callback) callback();
-                }
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        async function typeText(element, text, speed = 100) {
+            for (let i = 0; i < text.length; i++) {
+                element.textContent += text[i];
+                await sleep(speed);
             }
-            type();
         }
 
-        function showRandomEmoji() {
-            const randomEmoji = randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
-            document.querySelector('#greeting-emoji').textContent = randomEmoji;
+        async function deleteText(element, speed = 50) {
+            const text = element.textContent;
+            for (let i = text.length; i > 0; i--) {
+                element.textContent = text.substring(0, i - 1);
+                await sleep(speed);
+            }
+        }
+
+        async function animateGreeting() {
+            const greetingText = document.querySelector('#greeting-text');
+            const emojiElement = document.querySelector('#greeting-emoji');
+            const cursor = document.querySelector('.cursor');
             
-            setTimeout(() => {
-                document.querySelector('#greeting-emoji').textContent = '👋';
-            }, 1000);
+            // Start with empty text
+            greetingText.textContent = '';
+            emojiElement.textContent = '';
+            
+            await sleep(1000); // Initial pause with just blinking cursor
+            
+            // Type "Hi there!"
+            await typeText(greetingText, 'Hi there!');
+            
+            // Show random emoji
+            const randomEmoji = randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
+            emojiElement.textContent = randomEmoji;
+            
+            await sleep(1000);
+            
+            // Delete text
+            await deleteText(greetingText);
+            
+            // Show waving hand
+            emojiElement.textContent = '👋';
+            
+            // Keep cursor blinking
+            cursor.style.display = 'inline-block';
+        }
+
+        // Start animation when page loads
+        window.addEventListener('load', animateGreeting);
         }
 
         window.onload = function() {
             const h1 = document.querySelector('h1');
-            h1.innerHTML = 'Hi there! <span id="greeting-emoji"></span>';
+            h1.innerHTML = '<div class="greeting"><span id="greeting-text"></span><span class="cursor"></span><span id="greeting-emoji"></span></div>';
             
             typeWriter('Hi there!', h1, () => {
                 showRandomEmoji();
