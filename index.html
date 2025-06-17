@@ -111,6 +111,9 @@
             
             // Type "Hi there!"
             await typeText(greetingText, 'Hi there!');
+
+            cursor.style.animation = 'none'; // Disable blink animation
+            cursor.style.opacity = '0';      // Hide cursor
             
             // Show random emoji
             const randomEmoji = randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
@@ -120,18 +123,11 @@
             
             // Delete only the random emoji (keep text)
             emojiElement.textContent = '';
-            
-            // Stop cursor blinking
-            // cursor.style.animation = 'none'; // Disable blink animation
-            // cursor.style.opacity = '0';      // Hide cursor
 
             await sleep(500); // Short pause before wave
 
             // Show waving hand
             emojiElement.textContent = '👋';
-
-            //Stop cursor blinking after animation completes
-            cursor.style.animation = 'none';
         }
 
         // Start animation when page loads
