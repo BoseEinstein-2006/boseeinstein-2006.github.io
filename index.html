@@ -117,14 +117,17 @@
             
             await sleep(1000);
             
-            // Delete text
-            await deleteText(greetingText);
+            // Delete only the random emoji (keep text)
+            emojiElement.textContent = '';
             
+            // Stop cursor blinking
+            cursor.style.animation = 'none'; // Disable blink animation
+            cursor.style.opacity = '0';      // Hide cursor
+
+            await sleep(500); // Short pause before wave
+
             // Show waving hand
             emojiElement.textContent = '👋';
-            
-            // Keep cursor blinking
-            cursor.style.display = 'inline-block';
         }
 
         // Start animation when page loads
