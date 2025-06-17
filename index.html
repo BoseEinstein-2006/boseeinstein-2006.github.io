@@ -129,16 +129,6 @@
 
         // Start animation when page loads
         window.addEventListener('load', animateGreeting);
-        }
-
-        window.onload = function() {
-            const h1 = document.querySelector('h1');
-            h1.innerHTML = '<div class="greeting"><span id="greeting-text"></span><span class="cursor"></span><span id="greeting-emoji"></span></div>';
-            
-            typeWriter('Hi there!', h1, () => {
-                showRandomEmoji();
-            });
-        };
     </script>
 </head>
 <body>
